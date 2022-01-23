@@ -18,7 +18,6 @@
 <script>
 export default {
   emits: ['openModal'],
-
   setup(props, { emit }) {
 
     function open() {

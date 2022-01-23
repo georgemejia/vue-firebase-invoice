@@ -1,14 +1,18 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
-    invoices: 0
+  state() {
+    return {
+      isModalVisible: false
+    }
   },
   mutations: {
-    addNewInvoice(state) {
-      state.invoices++
-      console.log('New invoice has been created')
-    } 
+    showModal(state) {
+      state.isModalVisible = true
+    },
+    closeModal(state) {
+      state.isModalVisible = false
+    }
   },
   actions: {
   },

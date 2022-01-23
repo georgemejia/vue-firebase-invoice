@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import InvoiceNavbar from './components/InvoiceNavbar.vue'
 import InvoiceItem from './components/InvoiceItem.vue'
 import InvoiceModal from './components/InvoiceModal.vue'
@@ -21,17 +22,21 @@ export default {
     InvoiceModal
   },
   setup() {
-    let isModalVisible = ref(false)
+    const store = useStore()
+
+    const isModalVisible = computed(() => {
+      return store.state.isModalVisible
+    })
 
     function showModal() {
-      isModalVisible.value = true
+      store.commit('showModal')
     }
 
     function closeModal() {
-      isModalVisible.value = false
+      store.commit('closeModal')
     }
 
-    return { isModalVisible, showModal, closeModal }
+    return { store, isModalVisible, showModal, closeModal }
   }
 }
 </script>
