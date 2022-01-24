@@ -3,7 +3,8 @@ import { createStore } from 'vuex'
 export default createStore({
   state() {
     return {
-      isModalVisible: false
+      isModalVisible: false,
+      invoices: []
     }
   },
   mutations: {
@@ -12,6 +13,9 @@ export default createStore({
     },
     closeModal(state) {
       state.isModalVisible = false
+    },
+    addInvoiceToList(state, payload) {
+      state.invoices.push(payload)
     }
   },
   actions: {

@@ -1,37 +1,35 @@
 <template>
   <main class="mt-20">
     <InvoiceNavbar @open-modal="showModal" />
-    <ul class="max-w-screen-sm mx-auto">
-      <InvoiceItem />
-    </ul>
+    <InvoiceList />
     <InvoiceModal v-if="isModalVisible" @close-modal="closeModal" />
   </main>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import InvoiceNavbar from './components/InvoiceNavbar.vue'
-import InvoiceItem from './components/InvoiceItem.vue'
+import InvoiceList from './components/InvoiceList.vue'
 import InvoiceModal from './components/InvoiceModal.vue'
 
 export default {
   components: {
     InvoiceNavbar,
-    InvoiceItem,
+    InvoiceList,
     InvoiceModal
   },
   setup() {
     const store = useStore()
-
+    // function get data from vuex
     const isModalVisible = computed(() => {
       return store.state.isModalVisible
     })
-
+    // function calls vuex function
     function showModal() {
       store.commit('showModal')
     }
-
+    // function calls vuex function
     function closeModal() {
       store.commit('closeModal')
     }
