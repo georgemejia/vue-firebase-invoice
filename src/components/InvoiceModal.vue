@@ -72,7 +72,7 @@
         </label>
       </div>
 
-      <InvoiceModalItems />
+      <InvoiceModalItems :items="invoice.items" />
 
       <button 
         class="text-white font-bold rounded bg-indigo-600 py-2 px-4"
@@ -95,11 +95,10 @@ import { reactive } from 'vue'
 import { useStore } from 'vuex'
 import InvoiceModalItems from './InvoiceModalItems.vue'
 export default {
-  emits: ['closeModal'],
   components: {
     InvoiceModalItems
   },
-  setup(props, { emit }) {
+  setup() {
     const store = useStore()
     
     const invoice = reactive({
@@ -112,7 +111,8 @@ export default {
       billToAddress: '',
       billToCity: '',
       billToZipCode: '',
-      billToState: ''
+      billToState: '',
+      items: []
     })
 
     function save() {
@@ -124,7 +124,11 @@ export default {
       store.commit('toggleModal')
     }
 
-    return { invoice, store, close, save, toggleModal }
+    function addInvoiceItems(event) {
+      console.log(event)
+    }
+
+    return { invoice, store, close, save, toggleModal, addInvoiceItems }
   }
 }
 </script>

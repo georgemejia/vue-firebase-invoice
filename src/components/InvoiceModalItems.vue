@@ -10,16 +10,7 @@
     </div>
     <!-- table rows that will be added on -->
     <div class="grid grid-cols-5 gap-x-4 mb-5" v-for="(item, index) in items" :key="index">
-      <div class="col-span-2">
-        <input class="block w-full bg-slate-700 rounded text-white text-base p-2" type="text">
-      </div>
-      <div>
-        <input class="block w-full bg-slate-700 rounded text-white p-2" type="text">
-      </div>
-      <div>
-        <input class="block w-full bg-slate-700 rounded text-white p-2" type="text">
-      </div>
-      <div class="text-white">{{ item.total }}</div>
+      <ModalItem :item="item" />
     </div>
   
     <button class="w-full bg-slate-700 py-2 rounded mb-5 text-white font-bold" @click="addNewItem">+ Add New Item</button>
@@ -27,23 +18,22 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import ModalItem from './ModalItem.vue'
 export default {
-  setup() {
-    const items = ref([])
+  props: ['items'],
+  components: { ModalItem },
+  setup(props) {
 
     function addNewItem() {
-      items.value.push({
+      props.items.push({
         name: '',
         quantity: null,
         price: null,
         total: null
       })
-
-      console.log(items)
     }
 
-    return { items, addNewItem }
+    return { addNewItem }
   }
 }
 </script>

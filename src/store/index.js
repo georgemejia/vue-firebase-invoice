@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state() {
     return {
-      isModalVisible: false,
+      isModalVisible: true,
       invoices: []
     }
   },
@@ -13,7 +13,7 @@ export default createStore({
     },
     addInvoiceToList(state, payload) {
       state.invoices.push(payload)
-    }
+    },
   },
   actions: {
   },
