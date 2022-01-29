@@ -76,7 +76,7 @@
 
       <button 
         class="text-white font-bold rounded bg-indigo-600 py-2 px-4"
-        @click="close">
+        @click="toggleModal">
         Cancel
       </button>
 
@@ -115,16 +115,16 @@ export default {
       billToState: ''
     })
 
-    function close() {
-      emit('closeModal')
-    }
-
     function save() {
       store.commit('addInvoiceToList', invoice)
-      close()
+      toggleModal()
     }
 
-    return { invoice, store, close, save }
+    function toggleModal() {
+      store.commit('toggleModal')
+    }
+
+    return { invoice, store, close, save, toggleModal }
   }
 }
 </script>

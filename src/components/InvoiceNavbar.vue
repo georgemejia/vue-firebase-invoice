@@ -8,7 +8,7 @@
       <p class="text-white mr-5">Filter by status</p>
       <button 
         class="text-white font-bold bg-indigo-600 p-3 rounded" 
-        @click="open">
+        @click="toggleModal">
         New Invoice +
       </button>
     </div>
@@ -16,19 +16,16 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
 export default {
-  emits: ['openModal'],
-  setup(props, { emit }) {
+  setup() {
+    const store = useStore()
 
-    function open() {
-      emit('openModal')
+    function toggleModal() {
+      store.commit('toggleModal')
     }
 
-    return { open }
+    return { toggleModal }
   }
 }
 </script>
-
-<style>
-
-</style>

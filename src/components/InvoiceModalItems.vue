@@ -11,13 +11,13 @@
     <!-- table rows that will be added on -->
     <div class="grid grid-cols-5 gap-x-4 mb-5" v-for="(item, index) in items" :key="index">
       <div class="col-span-2">
-        <input class="block w-full bg-slate-700 rounded" type="text">
+        <input class="block w-full bg-slate-700 rounded text-white text-base p-2" type="text">
       </div>
       <div>
-        <input class="block w-full bg-slate-700 rounded" type="text">
+        <input class="block w-full bg-slate-700 rounded text-white p-2" type="text">
       </div>
       <div>
-        <input class="block w-full bg-slate-700 rounded" type="text">
+        <input class="block w-full bg-slate-700 rounded text-white p-2" type="text">
       </div>
       <div class="text-white">{{ item.total }}</div>
     </div>

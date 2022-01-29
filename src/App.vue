@@ -1,8 +1,8 @@
 <template>
   <main class="mt-20">
-    <InvoiceNavbar @open-modal="showModal" />
+    <InvoiceNavbar />
     <InvoiceList />
-    <InvoiceModal v-if="isModalVisible" @close-modal="closeModal" />
+    <InvoiceModal v-if="isModalVisible" />
   </main>
 </template>
 
@@ -21,20 +21,12 @@ export default {
   },
   setup() {
     const store = useStore()
-    // function get data from vuex
+    
     const isModalVisible = computed(() => {
       return store.state.isModalVisible
     })
-    // function calls vuex function
-    function showModal() {
-      store.commit('showModal')
-    }
-    // function calls vuex function
-    function closeModal() {
-      store.commit('closeModal')
-    }
 
-    return { store, isModalVisible, showModal, closeModal }
+    return { store, isModalVisible }
   }
 }
 </script>
