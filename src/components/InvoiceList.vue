@@ -1,16 +1,16 @@
 <template>
-  <ul class="max-w-screen-sm mx-auto" v-for="invoice in invoices" :key="invoice.length">
-    <InvoiceItemPreview :invoice="invoice" />
+  <ul class="max-w-screen-sm mx-auto" v-for="(invoice, index) in invoices" :key="index">
+    <InvoiceListItem :invoice="invoice" :index="index" />
   </ul>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import InvoiceItemPreview from './InvoiceItemPreview.vue'
+import InvoiceListItem from './InvoiceListItem.vue'
 export default {
   components: { 
-    InvoiceItemPreview
+    InvoiceListItem
   },
   setup() {
     const store = useStore() 
