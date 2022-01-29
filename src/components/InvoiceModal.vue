@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-screen-md h-screen bg-slate-800 absolute top-0 left-0">
+  <div class="w-full max-w-screen-md min-h-screen bg-slate-800 absolute top-0 left-0">
     <div class="container p-12 mx-auto">
 
       <div class="text-indigo-600 text-sm font-bold mb-2">Bill From</div>
