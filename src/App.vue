@@ -1,6 +1,7 @@
 <template>
   <main class="mt-20">
     <InvoiceNavbar />
+    <invoice-opened />
     <InvoiceList v-if="invoices" />
     <InvoiceModal v-if="isModalVisible" />
   </main>
@@ -13,11 +14,14 @@ import InvoiceNavbar from './components/InvoiceNavbar.vue'
 import InvoiceList from './components/InvoiceList.vue'
 import InvoiceModal from './components/InvoiceModal.vue'
 
+import InvoiceOpened from './components/InvoiceOpened.vue'
+
 export default {
   components: {
     InvoiceNavbar,
     InvoiceList,
-    InvoiceModal
+    InvoiceModal,
+    InvoiceOpened
   },
   setup() {
     const store = useStore()
