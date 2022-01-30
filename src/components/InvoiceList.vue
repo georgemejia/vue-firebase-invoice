@@ -14,7 +14,7 @@ export default {
   },
   setup() {
     const store = useStore() 
-
+    // gets the array of invoices from state to make an item
     const invoices = computed(() => {
       return store.state.invoices
     })

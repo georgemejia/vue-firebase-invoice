@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state() {
     return {
-      isModalVisible: true,
+      isModalVisible: false,
       invoices: []
     }
   },
