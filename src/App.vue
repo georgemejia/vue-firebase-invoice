@@ -1,7 +1,7 @@
 <template>
   <main class="mt-20">
     <InvoiceNavbar />
-    <InvoiceList />
+    <InvoiceList v-if="invoices" />
     <InvoiceModal v-if="isModalVisible" />
   </main>
 </template>
@@ -26,7 +26,11 @@ export default {
       return store.state.isModalVisible
     })
 
-    return { store, isModalVisible }
+    const invoices = computed(() => {
+      return store.state.invoices.length > 0
+    })
+
+    return { store, isModalVisible, invoices}
   }
 }
 </script>
