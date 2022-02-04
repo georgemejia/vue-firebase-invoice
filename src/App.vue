@@ -1,42 +1,11 @@
 <template>
   <main class="mt-20">
-    <InvoiceNavbar />
-    <invoice-opened />
-    <InvoiceList v-if="invoices" />
-    <InvoiceModal v-if="isModalVisible" />
+    <router-view></router-view>
   </main>
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
-import InvoiceNavbar from './components/InvoiceNavbar.vue'
-import InvoiceList from './components/InvoiceList.vue'
-import InvoiceModal from './components/InvoiceModal.vue'
-
-import InvoiceOpened from './components/InvoiceOpened.vue'
-
-export default {
-  components: {
-    InvoiceNavbar,
-    InvoiceList,
-    InvoiceModal,
-    InvoiceOpened
-  },
-  setup() {
-    const store = useStore()
-    
-    const isModalVisible = computed(() => {
-      return store.state.isModalVisible
-    })
-
-    const invoices = computed(() => {
-      return store.state.invoices.length > 0
-    })
-
-    return { store, isModalVisible, invoices}
-  }
-}
+export default {}
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-screen-sm mx-auto">
-    <div class="bg-slate-800 flex justify-between items-center p-5 rounded mb-3">
+  <!-- <div class="max-w-screen-sm mx-auto"> -->
+    <!-- <div class="bg-slate-800 flex justify-between items-center p-5 rounded mb-3">
       <div>
         <router-link to="/" class="text-white">Go back</router-link>
       </div>
@@ -39,15 +39,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <h1 class="text-white">{{ invoice }}</h1>
 </template>
 
 <script>
 export default {
-  props: ['invoice']
+  props: ['invoice'],
 }
 </script>
-
-<style>
-
-</style>

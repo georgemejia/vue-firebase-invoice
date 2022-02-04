@@ -5,7 +5,7 @@
     <div class="text-white">{{ invoice.to.name }}</div>
     <div class="text-white text-2xl font-bold">$5,000</div>
     <div class="text-green-600 text-sm font-bold bg-green-300 py-1 px-4 rounded opacity-80">&#x2022; Paid</div>
-    <div class="text-white text-indigo-600 font-bold" @click="log(index)">&#x27A4;</div>
+    <router-link to='/invoice/:invoice' class="text-white text-indigo-600 font-bold" @click="log(index)">&#x27A4;</router-link>
   </li>
 </template>
 
