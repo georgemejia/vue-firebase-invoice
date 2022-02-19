@@ -1,6 +1,11 @@
 <template>
-  <ul class="max-w-screen-sm mx-auto" v-for="(invoice, index) in invoices" :key="index">
-    <InvoiceListItem :invoice="invoice" :index="index" />
+  <ul class="max-w-screen-sm mx-auto">
+    <InvoiceListItem 
+      v-for="(invoice, index) in invoices" 
+      :key="index" 
+      :invoice="invoice" 
+      :index="index" 
+    />
   </ul>
 </template>
 
@@ -10,11 +15,11 @@ import { useStore } from 'vuex'
 import InvoiceListItem from './InvoiceListItem.vue'
 export default {
   components: { 
-    InvoiceListItem
+    InvoiceListItem 
   },
   setup() {
     const store = useStore() 
-    // gets the array of invoices from state to make an item
+    
     const invoices = computed(() => {
       return store.state.invoices
     })

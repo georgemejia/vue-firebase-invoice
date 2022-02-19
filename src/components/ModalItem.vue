@@ -2,14 +2,17 @@
   <div class="col-span-2">
     <input class="block w-full bg-slate-700 rounded text-white text-base p-2" type="text" v-model="item.name">
   </div>
+
   <div>
-    <input class="block w-full bg-slate-700 rounded text-white p-2" type="text" v-model="item.quantity">
+    <input class="block w-full bg-slate-700 rounded text-white p-2" type="text" v-model.number="item.quantity">
   </div>
+
   <div>
-    <input class="block w-full bg-slate-700 rounded text-white p-2" type="text" v-model="item.price">
+    <input class="block w-full bg-slate-700 rounded text-white p-2" type="text" v-model.number="item.price">
   </div>
+  
   <div>
-    <div class="text-white">$45</div>
+    <div class="text-white">{{ item.total = item.quantity * item.price }}</div>
   </div>
 </template>
 

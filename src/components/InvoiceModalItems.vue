@@ -9,8 +9,12 @@
       <div class="text-white text-sm">Total</div>
     </div>
     <!-- table rows that will be added on -->
-    <div class="grid grid-cols-5 gap-x-4 mb-5" v-for="(item, index) in items" :key="index">
-      <ModalItem :item="item" />
+    <div class="grid grid-cols-5 gap-x-4 gap-y-4 mb-5">
+      <ModalItem 
+        v-for="(item, index) in items" 
+        :key="index" 
+        :item="item"
+      />
     </div>
   
     <button class="w-full bg-slate-700 py-2 rounded mb-5 text-white font-bold" @click="addNewItem">+ Add New Item</button>

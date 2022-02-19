@@ -1,6 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from '../views/Home.vue'
-import Invoice from '../views/Invoice.vue'
 
 const routes = [
   {
@@ -8,12 +7,6 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/invoice/:invoice',
-    name: 'Invoice',
-    component: Invoice,
-    props: true
-  }
 ]
 
 const router = createRouter({

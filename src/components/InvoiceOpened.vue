@@ -1,17 +1,7 @@
 <template>
-  <div class="max-w-screen-sm mx-auto">
-    <div class="bg-slate-800 flex justify-between items-center p-5 rounded mb-3">
-      <div>
-        <router-link to="/" class="text-white">Go back</router-link>
-      </div>
-      <div>
-        <button class="text-white bg-red-500 py-2 px-3 rounded">Delete</button>
-        <button class="text-white bg-indigo-600 py-2 px-3 ml-2 rounded">Mark as Paid</button>
-        <button class="text-white bg-slate-700 py-2 px-3 ml-2 rounded">Edit</button>
-      </div>
-    </div>
+  <div class="max-w-screen-sm mx-auto bg-slate-800 rounded-b">
 
-    <div class="bg-slate-800 p-5">
+    <div class="p-5">
       <div class="flex justify-between mb-10">
         <p class="text-indigo-600 font-bold">From:</p>
         <div class="text-right">
@@ -39,15 +29,27 @@
         </div>
       </div>
     </div>
+
+    <div class="flex justify-between items-center p-5">
+      <div>
+        <button class="text-white bg-red-500 py-2 px-3 rounded">Delete</button>
+        <button class="text-white bg-indigo-600 py-2 px-3 ml-2 rounded">Mark as Paid</button>
+        <button class="text-white bg-slate-700 py-2 px-3 ml-2 rounded">Edit</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['invoice']
+  props: ['invoice'],
+  setup(props, { emit }) {
+    function closeInvoice() {
+      emit('closeInvoice')
+    }
+
+    return { closeInvoice }
+  }
 }
 </script>
 
-<style>
-
-</style>
