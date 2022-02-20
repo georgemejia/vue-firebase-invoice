@@ -33,7 +33,11 @@
     <div class="flex justify-between items-center p-5">
       <div>
         <button class="text-white bg-red-500 py-2 px-3 rounded">Delete</button>
-        <button class="text-white bg-indigo-600 py-2 px-3 ml-2 rounded">Mark as Paid</button>
+        <button 
+          class="text-white bg-indigo-600 py-2 px-3 ml-2 rounded" 
+          @click="updateStatus">
+          Mark as Paid
+        </button>
         <button class="text-white bg-slate-700 py-2 px-3 ml-2 rounded">Edit</button>
       </div>
     </div>
@@ -47,8 +51,12 @@ export default {
     function closeInvoice() {
       emit('closeInvoice')
     }
+    
+    function updateStatus() {
+      emit('updateStatus')
+    }
 
-    return { closeInvoice }
+    return { closeInvoice, updateStatus }
   }
 }
 </script>

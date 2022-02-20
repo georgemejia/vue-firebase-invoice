@@ -51,6 +51,7 @@ export default {
         zipcode: '',
         state: '',
       },
+      status: 'Pending',
       items: []
     })
 
