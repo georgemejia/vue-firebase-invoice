@@ -32,7 +32,11 @@
 
     <div class="flex justify-between items-center p-5">
       <div>
-        <button class="text-white bg-red-500 py-2 px-3 rounded">Delete</button>
+        <button 
+          class="text-white bg-red-500 py-2 px-3 rounded"
+          @click="deleteInvoice">
+          Delete
+        </button>
         <button 
           class="text-white bg-indigo-600 py-2 px-3 ml-2 rounded" 
           @click="updateStatus">
@@ -45,18 +49,23 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
 export default {
-  props: ['invoice'],
+  props: ['invoice', 'index'],
   setup(props, { emit }) {
-    function closeInvoice() {
-      emit('closeInvoice')
-    }
+    const store = useStore()
     
+    // emits an event to change the status of the selected invoice
     function updateStatus() {
       emit('updateStatus')
     }
 
-    return { closeInvoice, updateStatus }
+    // deletes selected invoice from store
+    function deleteInvoice() {
+      store.commit('deleteInvoice', props.index)
+    }
+
+    return { updateStatus, deleteInvoice }
   }
 }
 </script>

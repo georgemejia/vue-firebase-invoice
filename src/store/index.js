@@ -14,6 +14,9 @@ export default createStore({
     addInvoiceToList(state, payload) {
       state.invoices.push(payload)
     },
+    deleteInvoice(state, payload) {
+      state.invoices.splice(payload, 1)
+    }
   },
   actions: {
   },
