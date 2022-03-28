@@ -38,10 +38,8 @@ export default {
     
     const invoice = reactive({
       from: {
-        address: '',
-        city: '',
-        zipCode: '',
-        state: '',
+        name: '',
+        email: '',
       },
       to: {
         name: '',
@@ -55,6 +53,7 @@ export default {
       items: []
     })
 
+    // sends payload to store function that adds a new invoice
     function saveInvoice() {
       store.commit('addInvoiceToList', invoice)
       toggleModal()

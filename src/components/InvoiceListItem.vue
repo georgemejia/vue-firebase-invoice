@@ -15,7 +15,11 @@
       <button class="text-white text-indigo-600 font-bold" @click="toggleInvoice">&#x27A4;</button>
     </div>
     <div v-show="isInvoiceOpen">
-      <InvoiceOpened :invoice="invoice" :index="index"  @update-status="markAsPaid" />
+      <InvoiceOpened 
+        :invoice="invoice" 
+        :index="index"  
+        @update-status="markAsPaid" 
+      />
     </div>
   </li>
 </template>
