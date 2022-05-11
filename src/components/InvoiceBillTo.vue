@@ -13,14 +13,13 @@
   <label class="w-full block text-slate-300 text-sm mb-5" for="street">Street Address
     <input 
       class="w-full bg-slate-700 block p-2 mt-2 rounded placeholder:text-sm" id="street" type="text" placeholder="Street Address"
-      v-model='to.address'  >
+      v-model='to.address'>
   </label>
   <div class="flex mb-10">
     <label class="w-full block text-slate-300 text-sm" for="city">City
       <input 
         class="w-full bg-slate-700 block p-2 mt-2 rounded placeholder:text-sm" id="city" type="text" placeholder="City"
-        v-model='to.city'
-      >
+        v-model='to.city'>
     </label>
     <label class="w-full block mx-3 text-slate-300 text-sm" for="code">Zip Code
       <input 

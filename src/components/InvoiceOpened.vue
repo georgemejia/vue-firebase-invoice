@@ -20,7 +20,7 @@
           <p class="text-white font-bold">Email:</p>
           <p class="text-white">{{ invoice.to.email }}</p>
           <br>
-          <p class="text-white font-bold">Address</p>
+          <p class="text-white font-bold">Address:</p>
           <p class="text-white">{{ invoice.to.address }}</p>
           <p class="text-white">{{ invoice.to.city }}</p>
           <p class="text-white">{{ invoice.to.zipcode }}</p>
@@ -40,7 +40,9 @@
           @click="updateStatus">
           Mark as Paid
         </button>
-        <button class="text-white bg-slate-700 py-2 px-3 ml-2 rounded">Edit</button>
+        <button class="text-white bg-slate-700 py-2 px-3 ml-2 rounded">
+          Edit
+        </button>
       </div>
     </div>
   </div>
