@@ -1,14 +1,14 @@
 <template>
   <div class="col-span-2">
-    <input class="block w-full bg-slate-700 rounded text-white text-base p-2" type="text" v-model="item.name">
+    <input class="block w-full bg-slate-700 rounded text-white text-sm p-2" type="text" v-model="item.name">
   </div>
 
   <div>
-    <input class="block w-full bg-slate-700 rounded text-white p-2" type="text" v-model.number="item.quantity">
+    <input class="block w-full bg-slate-700 rounded text-white text-sm p-2" type="text" v-model.number="item.quantity">
   </div>
 
   <div>
-    <input class="block w-full bg-slate-700 rounded text-white p-2" type="text" v-model.number="item.price">
+    <input class="block w-full bg-slate-700 rounded text-white text-sm p-2" type="text" v-model.number="item.price">
   </div>
   
   <div>

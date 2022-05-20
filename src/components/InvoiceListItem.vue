@@ -6,7 +6,7 @@
       <div class="text-white font-bold"># {{ index + 1}}</div>
       <div class="text-white">Due 20 Jan 2022</div>
       <div class="text-white">{{ invoice.to.name }}</div>
-      <div class="text-white text-2xl font-bold">${{ totalAmount }}</div>
+      <div class="text-white font-bold">${{ total }}</div>
       <div 
         class="text-sm font-bold py-1 px-4 rounded opacity-80"
         :class="{ 'bg-slate-500 text-slate-700' : !isInvoicePaid, 'bg-green-400 text-green-700' : isInvoicePaid }">
@@ -36,16 +36,22 @@ export default {
     const isInvoiceOpen = ref(false)
     const isInvoicePaid = ref(false)
 
+    const total = computed(() => {
+      const invoiceTotals = props.invoice.items.map((item) => {
+        return item.total
+      })
+
+      let sum = 0
+      for (let i = 0; i < invoiceTotals.length; i++) {
+        sum+=invoiceTotals[i]
+      }
+      
+      return sum
+    })
+
     function toggleInvoice() {
       isInvoiceOpen.value = !isInvoiceOpen.value
     }
-
-    const totalAmount = computed(() => {
-      const arr = props.invoice.map((i) => {
-        return i.items
-      })
-      console.log(arr)
-    })
 
     function markAsPaid() {
       isInvoicePaid.value = true
@@ -58,7 +64,7 @@ export default {
       return props.invoice.status
     }) 
 
-    return { isInvoiceOpen, isInvoicePaid, status, toggleInvoice, markAsPaid, totalAmount }
+    return { isInvoiceOpen, isInvoicePaid, status, toggleInvoice, markAsPaid, total }
   }
 }
 </script>
