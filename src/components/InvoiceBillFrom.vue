@@ -3,12 +3,14 @@
   <label class="w-full block text-slate-300 text-sm mb-5" for="street">Name
     <input 
       class="w-full bg-slate-700 block p-2 mt-2 rounded placeholder:text-sm" id="street" type="text" placeholder="Name"
-      v-model='from.name'>
+      v-model='from.name'
+    >
   </label>
   <label class="w-full block text-slate-300 text-sm mb-5" for="street">Email
     <input 
       class="w-full bg-slate-700 block p-2 mt-2 rounded placeholder:text-sm" id="street" type="text" placeholder="Email"
-      v-model='from.email'>
+      v-model='from.email'
+    >
   </label>
 </template>
 
