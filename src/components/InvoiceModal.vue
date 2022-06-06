@@ -27,6 +27,7 @@ import { useStore } from 'vuex'
 import InvoiceBillFrom from './InvoiceBillFrom.vue'
 import InvoiceBillTo from './InvoiceBillTo.vue'
 import InvoiceModalItems from './InvoiceModalItems.vue'
+import moment from 'moment'
 export default {
   components: {
     InvoiceBillFrom,
@@ -50,7 +51,8 @@ export default {
         state: '',
       },
       status: 'Pending',
-      items: []
+      items: [],
+      date: moment().format('LL')
     })
 
     // sends payload to store function that adds a new invoice
