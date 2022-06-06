@@ -16,7 +16,7 @@ export default createStore({
     },
     deleteInvoice(state, payload) {
       state.invoices.splice(payload, 1)
-    }
+    },
   },
   actions: {
   },

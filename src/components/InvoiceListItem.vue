@@ -3,8 +3,8 @@
     <div 
       class="flex justify-between items-center bg-slate-800 p-5 mt-5" 
       :class="{ 'rounded': !isInvoiceOpen, 'rounded-t': isInvoiceOpen }">
-      <div class="text-white font-bold"># {{ index + 1}}</div>
-      <div class="text-white">Due 20 Jan 2022</div>
+      <div class="text-white font-bold"># {{ index + 1 }}</div>
+      <div class="text-white">{{ invoice.date }}</div>
       <div class="text-white">{{ invoice.to.name }}</div>
       <div class="text-white font-bold">${{ total }}</div>
       <div 
