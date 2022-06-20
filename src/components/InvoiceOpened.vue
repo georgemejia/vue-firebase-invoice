@@ -40,7 +40,9 @@
           @click="updateStatus">
           Mark as Paid
         </button>
-        <button class="text-white bg-slate-700 py-2 px-3 ml-2 rounded">
+        <button 
+          class="text-white bg-slate-700 py-2 px-3 ml-2 rounded"
+          @click="editInvoice">
           Edit
         </button>
       </div>
@@ -65,7 +67,12 @@ export default {
       store.commit('deleteInvoice', props.index)
     }
 
-    return { updateStatus, deleteInvoice }
+    // starts edit function to edit an invoice
+    function editInvoice() {
+      store.commit('editInvoice', props.invoice)
+    }
+
+    return { updateStatus, deleteInvoice, editInvoice }
   }
 }
 </script>
