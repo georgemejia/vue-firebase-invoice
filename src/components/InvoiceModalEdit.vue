@@ -7,13 +7,13 @@
 
       <button 
         class="text-white font-bold rounded bg-slate-700 py-2 px-4" 
-        @click="toggleModal">
+        @click="toggleModalEdit">
         Cancel
       </button>
 
       <button 
         class="text-white font-bold rounded bg-indigo-600 py-2 px-4 ml-2"
-        @click="saveInvoice">
+        @click="updateInvoice">
         Save
       </button>
 
@@ -22,12 +22,11 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import InvoiceBillFrom from './InvoiceBillFrom.vue'
 import InvoiceBillTo from './InvoiceBillTo.vue'
 import InvoiceModalItems from './InvoiceModalItems.vue'
-import moment from 'moment'
 export default {
   components: {
     InvoiceBillFrom,
@@ -36,37 +35,25 @@ export default {
   },
   setup() {
     const store = useStore()
-    
-    const invoice = reactive({
-      from: {
-        name: '',
-        email: '',
-      },
-      to: {
-        name: '',
-        email: '',
-        address: '',
-        city: '',
-        zipcode: '',
-        state: '',
-      },
-      status: 'Pending',
-      items: [],
-      date: moment().format('LL')
+
+    const invoice = computed(() => {
+      return store.state.editedInvoice
     })
 
-    // sends payload to store function that adds a new invoice
-    function saveInvoice() {
-      store.commit('addInvoiceToList', invoice)
-      toggleModal()
-    }
-    
-    // toggles the modal from store
-    function toggleModal() {
-      store.commit('toggleModal')
+    function updateInvoice() {
+      console.log('updated')
     }
 
-    return { invoice, store, saveInvoice, toggleModal }
+    // toggles the modal from store
+    function toggleModalEdit() {
+      store.commit('toggleModalEdit')
+    }
+
+    return { invoice, updateInvoice, toggleModalEdit }
   }
 }
 </script>
+
+<style>
+
+</style>
