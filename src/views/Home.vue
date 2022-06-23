@@ -25,10 +25,8 @@ export default {
   },
   setup() {
     const store = useStore()
-    
-    const isModalVisible = computed(() => {
-      return store.state.isModalVisible
-    })
+    // renders the modal state
+    const isModalVisible = computed(() => store.state.isModalVisible)
 
     return { store, isModalVisible }
   }
