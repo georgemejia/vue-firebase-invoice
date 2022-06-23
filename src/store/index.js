@@ -1,33 +1,51 @@
 import { createStore } from 'vuex'
+import moment from 'moment'
 
 export default createStore({
   state() {
     return {
       isModalVisible: false,
-      isModalVisibleEdit: false,
+      isAddButtonVisible: false,
+      isUpdateButtonVisible: false,
       invoices: [],
-      editedInvoice: {}
+      newInvoice: {
+        from: { name: '', email: '' },
+        to: { name: '', email: '', address: '', city: '', zipcode: '', state: '', },
+        status: 'Pending',
+        items: [],
+        date: moment().format('LL')
+      },
     }
   },
   mutations: {
-    toggleModal(state) {
-      state.isModalVisible = !state.isModalVisible
+    FILL_NEW_INVOICE_FORM(state, payload) {
+      state.newInvoice = payload
     },
-    toggleModalEdit(state) {
-      state.isModalVisibleEdit = !state.isModalVisibleEdit
+    ADD_NEW_INVOICE(state) {
+      state.invoices.push(state.newInvoice)
+      state.newInvoice = {
+        from: { name: '', email: '' },
+        to: { name: '', email: '', address: '', city: '', zipcode: '', state: '', },
+        status: 'Pending',
+        items: [],
+        date: moment().format('LL')
+      }
     },
-    addInvoiceToList(state, payload) {
-      state.invoices.push(payload)
-    },
-    deleteInvoice(state, payload) {
+    DELETE_INVOICE(state, payload) {
       state.invoices.splice(payload, 1)
     },
-    editInvoice(state, payload) {
-      const filteredInvoices = state.invoices.filter((element) => element === payload )
-      const invoice = filteredInvoices.map((invoice) => invoice )
-      state.editedInvoice = invoice[0]
-      state.isModalVisibleEdit = !state.isModalVisibleEdit
-    }
+    UPDATE_INVOICE(state) {
+      state.newInvoice = {
+        from: { name: '', email: '' },
+        to: { name: '', email: '', address: '', city: '', zipcode: '', state: '', },
+        status: 'Pending',
+        items: [],
+        date: moment().format('LL')
+      }
+    },
+    TOGGLE_MODAL(state) {
+      state.isModalVisible = !state.isModalVisible
+    },
   },
   actions: {
   },

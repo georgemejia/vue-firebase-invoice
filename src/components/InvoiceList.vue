@@ -24,7 +24,7 @@ export default {
       return store.state.invoices
     })
 
-    return { invoices }
+    return { store, invoices }
   }
 }
 </script>

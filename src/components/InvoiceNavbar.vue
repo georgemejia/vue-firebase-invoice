@@ -6,7 +6,7 @@
     </div>
     <div class="flex items-center">
       <p class="text-white mr-5">Filter by status</p>
-      <button class="text-white font-bold bg-indigo-600 p-3 rounded" @click="toggleModal">New Invoice +</button>
+      <button class="text-white font-bold bg-indigo-600 p-3 rounded" @click="createNewInvoice">New Invoice +</button>
     </div>
   </div>
 </template>
@@ -17,16 +17,18 @@ import { useStore } from 'vuex'
 export default {
   setup() {
     const store = useStore()
-
+    // renders invoices array
     const invoices = computed(() => {
       return store.state.invoices
     })
-
-    function toggleModal() {
-      store.commit('toggleModal')
+    // toggles modal to create new invoice
+    function createNewInvoice() {
+      store.commit('TOGGLE_MODAL')
+      store.state.isAddButtonVisible = true
+      store.state.isUpdateButtonVisible = false
     }
 
-    return { invoices, toggleModal }
+    return { invoices, createNewInvoice }
   }
 }
 </script>

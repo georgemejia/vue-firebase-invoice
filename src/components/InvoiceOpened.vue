@@ -30,21 +30,9 @@
 
     <div class="flex justify-between items-center p-5">
       <div>
-        <button 
-          class="text-white bg-red-500 py-2 px-3 rounded"
-          @click="deleteInvoice">
-          Delete
-        </button>
-        <button 
-          class="text-white bg-indigo-600 py-2 px-3 ml-2 rounded" 
-          @click="updateStatus">
-          Mark as Paid
-        </button>
-        <button 
-          class="text-white bg-slate-700 py-2 px-3 ml-2 rounded"
-          @click="editInvoice">
-          Edit
-        </button>
+        <button class="text-white bg-red-500 py-2 px-3 rounded" @click="deleteInvoice">Delete</button>
+        <button class="text-white bg-indigo-600 py-2 px-3 ml-2 rounded" @click="updateStatus">Mark as Paid</button>
+        <button class="text-white bg-slate-700 py-2 px-3 ml-2 rounded" @click="editInvoice">Edit</button>
       </div>
     </div>
   </div>
@@ -56,20 +44,20 @@ export default {
   props: ['invoice', 'index'],
   setup(props, { emit }) {
     const store = useStore()
-    
     // emits an event to change the status of the selected invoice
     function updateStatus() {
       emit('updateStatus')
     }
-
-    // commits to the store function that deletes the selected invoice
+    // deletes the selected invoice
     function deleteInvoice() {
-      store.commit('deleteInvoice', props.index)
+      store.commit('DELETE_INVOICE', props.index)
     }
-
-    // starts edit function to edit an invoice
+    // toggles modal and fills form with selected invoice information
     function editInvoice() {
-      store.commit('editInvoice', props.invoice)
+      store.commit('TOGGLE_MODAL')
+      store.commit('FILL_NEW_INVOICE_FORM', props.invoice)
+      store.state.isUpdateButtonVisible = true
+      store.state.isAddButtonVisible = false
     }
 
     return { updateStatus, deleteInvoice, editInvoice }
