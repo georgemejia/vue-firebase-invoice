@@ -5,9 +5,6 @@
     <div v-if="isModalVisible">
       <InvoiceModal />
     </div>
-    <div v-if="isModalVisibleEdit">
-      <InvoiceModalEdit />
-    </div>
   </div>
 </template>
 
@@ -33,11 +30,7 @@ export default {
       return store.state.isModalVisible
     })
 
-    const isModalVisibleEdit = computed(() => {
-      return store.state.isModalVisibleEdit
-    })
-
-    return { store, isModalVisible, isModalVisibleEdit }
+    return { store, isModalVisible }
   }
 }
 </script>
