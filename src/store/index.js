@@ -7,6 +7,7 @@ export default createStore({
       isModalVisible: false,
       isAddButtonVisible: false,
       isUpdateButtonVisible: false,
+      isAlertModalVisible: false,
       invoices: [],
       newInvoice: {
         from: { name: '', email: '' },
@@ -45,6 +46,9 @@ export default createStore({
     },
     TOGGLE_MODAL(state) {
       state.isModalVisible = !state.isModalVisible
+    },
+    TOGGLE_ALERT_MODAL(state) {
+      state.isAlertModalVisible = !state.isAlertModalVisible
     },
   },
   actions: {

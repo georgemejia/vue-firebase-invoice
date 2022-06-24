@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-sm mx-auto bg-slate-800 rounded-b p-12">
+  <div class="max-w-screen-sm mx-auto bg-slate-800 rounded-b p-12 relative mb-20">
     <h1 class="text-white text-4xl mb-1">Invoice</h1>
     <p class="text-white text-sm mb-20">Date: {{ invoice.date }}</p>
     <!-- starts the invoice contact information -->
@@ -58,23 +58,31 @@
       </div>
     </div>
     <!-- ends buttons -->
+    <AlertModal 
+      v-if="isAlertModalVisible"
+      :index="index"
+    />
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
+import AlertModal from './AlertModal.vue'
 export default {
   props: ['invoice', 'index'],
+  components: { AlertModal },
   setup(props, { emit }) {
     const store = useStore()
+    const isAlertModalVisible = computed(() => store.state.isAlertModalVisible)
+    const isInvoiceDeletionAllowed = computed(() => store.state.isInvoiceDeletionAllowed)
     // emits an event to change the status of the selected invoice
     function updateStatus() {
       emit('updateStatus')
     }
     // deletes the selected invoice
     function deleteInvoice() {
-      store.commit('DELETE_INVOICE', props.index)
+      store.commit('TOGGLE_ALERT_MODAL')
     }
     // toggles modal and fills form with selected invoice information
     function editInvoice() {
@@ -83,7 +91,7 @@ export default {
       store.state.isUpdateButtonVisible = true
       store.state.isAddButtonVisible = false
     }
-
+    // renders the total amount for all the total items in an invoice (not part of the object)
     const total = computed(() => {
       const invoiceTotals = props.invoice.items.map((item) => {
         return item.total
@@ -97,7 +105,7 @@ export default {
       return sum
     })
 
-    return { updateStatus, deleteInvoice, editInvoice, total }
+    return { updateStatus, deleteInvoice, editInvoice, total, isAlertModalVisible, isInvoiceDeletionAllowed }
   }
 }
 </script>
