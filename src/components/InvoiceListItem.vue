@@ -1,14 +1,11 @@
 <template>
   <li>
-    <div 
-      class="flex justify-between items-center bg-slate-800 p-5 mt-5" 
-      :class="{ 'rounded': !isInvoiceOpen, 'rounded-t': isInvoiceOpen }">
+    <div class="flex justify-between items-center bg-slate-800 p-5 mt-5" :class="{ 'rounded': !isInvoiceOpen, 'rounded-t': isInvoiceOpen }">
       <div class="text-white font-bold"># {{ index + 1 }}</div>
       <div class="text-white">{{ invoice.date }}</div>
       <div class="text-white">{{ invoice.to.name }}</div>
       <div class="text-white font-bold">${{ total }}</div>
-      <div 
-        class="text-sm font-bold py-1 px-4 rounded opacity-80"
+      <div class="text-sm text-center font-bold py-1 px-3 rounded opacity-80 w-full w-28"
         :class="{ 'bg-slate-500 text-slate-700' : !isInvoicePaid, 'bg-green-400 text-green-700' : isInvoicePaid }">
         &#x2022; {{ status }}
       </div>
