@@ -8,8 +8,7 @@
       <p class="text-white mr-5">Filter by status</p>
       <button class="text-white font-bold bg-indigo-600 p-3 rounded" @click="createNewInvoice">New Invoice +</button>
     </div>
-
-    <button class="bg-red-500 p-5" @click="HandleSignOut">Sign Out</button>
+    <button class="text-white underline" @click="handleSignOut">Sign Out</button>
   </div>
 </template>
 
@@ -29,12 +28,12 @@ export default {
       store.state.isAddButtonVisible = true
       store.state.isUpdateButtonVisible = false
     }
-
-    const HandleSignOut = () => {
+    // handles signing out user
+    const handleSignOut = () => {
       store.dispatch('signOut')
     }
 
-    return { invoicesCount, createNewInvoice, HandleSignOut }
+    return { invoicesCount, createNewInvoice, handleSignOut }
   }
 }
 </script>

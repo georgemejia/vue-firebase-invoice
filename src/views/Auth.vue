@@ -1,28 +1,28 @@
 <template>
-  <div>
+  <div class="flex justify-between max-w-3xl mx-auto">
     <form class="row flex flex-center mb-10" @submit.prevent="handleSignUp">
       <div class="mx-auto">
-        <h1 class="text-white mb-2">Sign Up</h1>
+        <h1 class="text-white text-2xl mb-2">Sign Up</h1>
         <div class="mb-2">
-          <input class="" type="email" placeholder="Your email" v-model="signUp.email" />
+          <input class="py-2 pl-2 rounded" type="email" placeholder="Your email" v-model="signUp.email" />
         </div>
         <div class="mb-2">
-          <input type="text" class="" placeholder="Enter Password" v-model="signUp.password" />
+          <input class="py-2 pl-2 rounded" type="text" placeholder="Enter Password" v-model="signUp.password" />
         </div>
-        <input type="submit" value="submit" class="text-white bg-red-400 p-5"/>
+        <input type="submit" value="Sign Up" class="text-white font-bold bg-indigo-600 p-3 rounded"/>
       </div>
     </form>
 
     <form class="row flex flex-center" @submit.prevent="handleSignIn">
       <div class="mx-auto">
-        <h1 class="text-white mb-2">Sign In</h1>
+        <h1 class="text-white text-2xl mb-2">Sign In</h1>
         <div class="mb-2">
-          <input class="" type="email" placeholder="Your email" v-model="signIn.email" />
+          <input class="py-2 pl-2 rounded" type="email" placeholder="Your email" v-model="signIn.email" />
         </div>
         <div class="mb-2">
-          <input type="text" class="" placeholder="Enter Password" v-model="signIn.password"/>
+          <input class="py-2 pl-2 rounded" type="text" placeholder="Enter Password" v-model="signIn.password"/>
         </div>
-        <input type="submit" value="submit" class="text-white bg-red-400 p-5"/>
+        <input type="submit" value="Sign In" class="text-white font-bold bg-indigo-600 p-3 rounded"/>
       </div>
     </form>
   </div>
