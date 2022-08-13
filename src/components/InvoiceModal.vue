@@ -42,7 +42,7 @@ export default {
     }
     // toggles modal 
     function toggleModal() {
-      store.commit('TOGGLE_MODAL')
+      store.commit('toggleModal')
     }
     // renders the state of the add button
     const isAddButtonVisible = computed(() => store.state.isAddButtonVisible)

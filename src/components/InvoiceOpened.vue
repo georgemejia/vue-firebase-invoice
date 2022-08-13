@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import AlertModal from './AlertModal.vue'
 export default {
@@ -86,7 +86,7 @@ export default {
     }
     // toggles modal and fills form with selected invoice information
     function editInvoice() {
-      store.commit('TOGGLE_MODAL')
+      store.commit('toggleModal')
       store.commit('FILL_NEW_INVOICE_FORM', props.invoice)
       store.state.isUpdateButtonVisible = true
       store.state.isAddButtonVisible = false
