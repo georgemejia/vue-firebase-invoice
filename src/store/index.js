@@ -1,7 +1,8 @@
 import { createStore } from 'vuex'
 import moment from 'moment'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { collection, addDoc } from "firebase/firestore"; 
 import router from '../router/index'
 
 export default createStore({
@@ -23,6 +24,9 @@ export default createStore({
     }
   },
   mutations: {
+    returnInvoice(state) {
+      return state.newInvoice
+    },
     addUser(state, payload) {
       state.user = payload
     },
@@ -62,7 +66,7 @@ export default createStore({
     },
     ADD_USER(state, payload) {
       state.user.push(payload)
-    }
+    },
   },
   getters: { 
     invoicesCount(state) {
@@ -85,7 +89,11 @@ export default createStore({
       await signOut(auth)
       commit('clearUser')
       router.push({ name: 'Auth' })
-    }
+    },
+    async addInvoiceToCollection({ commit, state }) {
+      console.log(state.newInvoice)
+      await addDoc(collection(db, 'invoices'), state.newInvoice)
+    },
   },
   modules: {
   }
