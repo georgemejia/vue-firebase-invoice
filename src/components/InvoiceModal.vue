@@ -4,7 +4,6 @@
       <InvoiceBillFrom :from="newInvoice.from" />
       <InvoiceBillTo :to="newInvoice.to" />
       <InvoiceModalItems :items="newInvoice.items" />
-
       <button class="text-white font-bold rounded bg-slate-700 py-2 px-4" @click="toggleModal">Cancel</button>
       <button v-if="isAddButtonVisible" class="text-white font-bold rounded bg-indigo-600 py-2 px-4 ml-2" @click="addNewInvoice">Save</button>
       <button v-if="isUpdateButtonVisible" class="text-white font-bold rounded bg-indigo-600 py-2 px-4 ml-2" @click="updateInvoice">Update</button>
@@ -36,8 +35,9 @@ export default {
       }
     })
     // function adds new invoice to invoices array
-    function addNewInvoice() {
-      store.commit('ADD_NEW_INVOICE')
+    const addNewInvoice = () => {
+      // store.commit('ADD_NEW_INVOICE')
+      store.dispatch('addInvoiceToCollection')
       toggleModal()
     }
     // toggles modal 
