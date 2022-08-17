@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import InvoiceListItem from './InvoiceListItem.vue'
 export default {
@@ -19,10 +19,14 @@ export default {
   },
   setup() {
     const store = useStore() 
+    // renders firestore collection on initial page load
+    onMounted(() => {
+      store.dispatch('renderFirestoreCollection')
+    })
     // renders the invoices array from state
     const invoices = computed(() => store.state.invoices)
 
-    return { store, invoices }
+    return { invoices }
   }
 }
 </script>

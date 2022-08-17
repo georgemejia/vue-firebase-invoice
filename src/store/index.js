@@ -2,7 +2,8 @@ import { createStore } from 'vuex'
 import moment from 'moment'
 import { auth, db } from '../firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore"; 
+import { v4 as uuidv4 } from 'uuid';
 import router from '../router/index'
 
 export default createStore({
@@ -13,9 +14,15 @@ export default createStore({
       isUpdateButtonVisible: false,
       isAlertModalVisible: false,
       invoices: [],
-      newInvoice: {
-        from: { name: '', email: '' },
-        to: { name: '', email: '', address: '', city: '', zipcode: '', state: '', },
+      invoice: {
+        fromName: '',
+        fromEmail: '',
+        toName: '',
+        toEmail: '',
+        toAddress: '',
+        toCity: '',
+        toZipcode: '',
+        toState: '',
         status: 'Pending',
         items: [],
         date: moment().format('LL')
@@ -24,35 +31,33 @@ export default createStore({
     }
   },
   mutations: {
-    returnInvoice(state) {
-      return state.newInvoice
-    },
     addUser(state, payload) {
       state.user = payload
     },
     clearUser(state) {
       state.user = null
     },
-    FILL_NEW_INVOICE_FORM(state, payload) {
-      state.newInvoice = payload
+    FILL_INVOICE_FORM(state, payload) {
+      state.invoice = payload
     },
-    ADD_NEW_INVOICE(state) {
-      state.invoices.push(state.newInvoice)
-      state.newInvoice = {
-        from: { name: '', email: '' },
-        to: { name: '', email: '', address: '', city: '', zipcode: '', state: '', },
-        status: 'Pending',
-        items: [],
-        date: moment().format('LL')
-      }
+    renderInvoices(state, payload) {
+      // state.invoices.push(payload)
+      // state.invoice = {}
+      state.invoices = payload
     },
     DELETE_INVOICE(state, payload) {
       state.invoices.splice(payload, 1)
     },
     UPDATE_INVOICE(state) {
-      state.newInvoice = {
-        from: { name: '', email: '' },
-        to: { name: '', email: '', address: '', city: '', zipcode: '', state: '', },
+      state.invoice = {
+        fromName: '',
+        fromEmail: '',
+        toName: '',
+        toEmail: '',
+        toAddress: '',
+        toCity: '',
+        toZipcode: '',
+        toState: '',
         status: 'Pending',
         items: [],
         date: moment().format('LL')
@@ -67,6 +72,9 @@ export default createStore({
     ADD_USER(state, payload) {
       state.user.push(payload)
     },
+    clearInvoices(state) {
+      state.invoices = []
+    }
   },
   getters: { 
     invoicesCount(state) {
@@ -78,22 +86,37 @@ export default createStore({
       const { email, password } = payload
       await createUserWithEmailAndPassword(auth, email, password)
       commit('addUser', auth.currentUser)
+      router.push({ name: 'Home' })
     },
     async signIn({ commit }, payload) {
       const { email, password } = payload
       await signInWithEmailAndPassword(auth, email, password)
       commit('addUser', auth.currentUser)
-      router.push({ name: 'Home'})
+      router.push({ name: 'Home' })
     },
     async signOut({ commit }) {
       await signOut(auth)
       commit('clearUser')
       router.push({ name: 'Auth' })
     },
-    async addInvoiceToCollection({ commit, state }) {
-      console.log(state.newInvoice)
-      await addDoc(collection(db, 'invoices'), state.newInvoice)
+    async addInvoiceToFirestoreCollection({ dispatch, state }) {
+      const docRef = await addDoc(collection(db, 'invoices'), state.invoice)
+      console.log(docRef.id)
+      dispatch('renderFirestoreCollection')
     },
+    async renderFirestoreCollection({ commit }) {
+      const invoicesSnapshot = await getDocs(collection(db, 'invoices'));
+      let invoices = []
+      invoicesSnapshot.forEach((doc) => {
+        const invoiceId = { id: doc.id }
+        invoices.push({ ...doc.data(), ...invoiceId })
+      })
+      commit('renderInvoices', invoices)
+    },
+    async deleteInvoiceFromFirestoreCollection({ dispatch }, payload) {
+      await deleteDoc(doc(db, 'invoices', payload))
+      dispatch('renderFirestoreCollection')
+    }
   },
   modules: {
   }
