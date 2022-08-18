@@ -80,7 +80,10 @@ export default {
     // emits event to close the invoice modal
     const closeInvoice = () => emit('closeInvoice')
     // deletes the selected invoice
-    const deleteInvoice = (id) => store.dispatch('deleteInvoiceFromFirestoreCollection', id)
+    const deleteInvoice = (id) => {
+      store.dispatch('deleteInvoiceFromFirestoreCollection', id)
+      closeInvoice()
+    }
 
     // emits an event to change the status of the selected invoice
     function updateStatus() {

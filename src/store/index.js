@@ -2,8 +2,7 @@ import { createStore } from 'vuex'
 import moment from 'moment'
 import { auth, db } from '../firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore"; 
-import { v4 as uuidv4 } from 'uuid';
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore"
 import router from '../router/index'
 
 export default createStore({
@@ -100,8 +99,7 @@ export default createStore({
       router.push({ name: 'Auth' })
     },
     async addInvoiceToFirestoreCollection({ dispatch, state }) {
-      const docRef = await addDoc(collection(db, 'invoices'), state.invoice)
-      console.log(docRef.id)
+      await addDoc(collection(db, 'invoices'), state.invoice)
       dispatch('renderFirestoreCollection')
     },
     async renderFirestoreCollection({ commit }) {
