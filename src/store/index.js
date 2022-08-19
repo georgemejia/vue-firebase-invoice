@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import moment from 'moment'
 import { auth, db } from '../firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore"
+import { collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import router from '../router/index'
 
 export default createStore({
@@ -100,21 +100,26 @@ export default createStore({
     },
     async addInvoiceToFirestoreCollection({ dispatch, state }) {
       await addDoc(collection(db, 'invoices'), state.invoice)
-      dispatch('renderFirestoreCollection')
+      // dispatch('renderFirestoreCollection')
     },
-    async renderFirestoreCollection({ commit }) {
-      const invoicesSnapshot = await getDocs(collection(db, 'invoices'));
-      let invoices = []
-      invoicesSnapshot.forEach((doc) => {
-        const invoiceId = { id: doc.id }
-        invoices.push({ ...doc.data(), ...invoiceId })
+    renderFirestoreCollection({ commit }) {
+      onSnapshot(collection(db, 'invoices'), (querySnapshot) => {
+        let invoices = []
+        querySnapshot.forEach((doc) => {
+          const invoiceId = { id: doc.id }
+          invoices.push({ ...doc.data(), ...invoiceId })
+        })
+        commit('renderInvoices', invoices)
       })
-      commit('renderInvoices', invoices)
     },
-    async deleteInvoiceFromFirestoreCollection({ dispatch }, payload) {
+    async deleteInvoiceFromFirestoreCollection({ commit }, payload) {
       await deleteDoc(doc(db, 'invoices', payload))
-      dispatch('renderFirestoreCollection')
-    }
+    },
+    async markInvoiceAsPaid({ commit }, payload) {
+      await updateDoc(doc(db, 'invoices', payload), {
+        status: 'Paid'
+      })
+    },
   },
   modules: {
   }

@@ -4,7 +4,7 @@
       v-for="(invoice, index) in invoices" 
       :key="index" 
       :invoice="invoice" 
-      :index="index" 
+      :index="index"
     />
   </ul>
 </template>

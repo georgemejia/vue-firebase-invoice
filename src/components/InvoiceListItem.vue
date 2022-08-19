@@ -5,7 +5,7 @@
       <div class="text-white">{{ invoice.date }}</div>
       <div class="text-white">{{ invoice.toName }}</div>
       <div class="text-white font-bold">${{ total }}</div>
-      <div class="text-sm text-center font-bold py-1 px-3 rounded opacity-80 w-full w-28" :class="{ 'bg-slate-500 text-slate-700' : !isInvoicePaid, 'bg-green-400 text-green-700' : isInvoicePaid }">&#x2022; {{ status }}</div>
+      <div class="text-sm font-bold py-1 px-3 rounded opacity-80 bg-slate-500 text-slate-700">&#x2022; {{ invoiceStatus }}</div>
       <button class="text-white text-indigo-600 font-bold" @click="openMenu">&#x27A4;</button>
     </div>
     <InvoiceModal v-if="isInvoiceOpen" :invoice="invoice"  @close-invoice="closeInvoice" />
@@ -22,7 +22,8 @@ export default {
   props: ['invoice', 'index'],
   setup(props) {
     const isInvoiceOpen = ref(false)
-    const isInvoicePaid = ref(false)
+
+    const invoiceStatus = computed(() => props.invoice.status) 
 
     const openInvoice = () => isInvoiceOpen.value = !isInvoiceOpen.value
     const closeInvoice = () => isInvoiceOpen.value = !isInvoiceOpen.value
@@ -40,22 +41,7 @@ export default {
       return sum
     })
 
-    function toggleInvoice() {
-      isInvoiceOpen.value = !isInvoiceOpen.value
-    }
-
-    function markAsPaid() {
-      isInvoicePaid.value = true
-      if (isInvoicePaid) {
-        props.invoice.status = 'Paid'
-      }
-    }
-
-    const status = computed(() => {
-      return props.invoice.status
-    }) 
-
-    return { openInvoice, closeInvoice, isInvoiceOpen, isInvoicePaid, status, toggleInvoice, markAsPaid, total }
+    return { isInvoiceOpen, openInvoice, closeInvoice, total, invoiceStatus }
   }
 }
 </script>
