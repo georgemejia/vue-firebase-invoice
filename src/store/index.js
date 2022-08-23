@@ -8,10 +8,11 @@ import router from '../router/index'
 export default createStore({
   state() {
     return {
-      isModalVisible: false,
+      isFormOpen: false,
       isAddButtonVisible: false,
       isUpdateButtonVisible: false,
       isAlertModalVisible: false,
+      invoiceType: 'All',
       invoices: [],
       invoice: {
         fromName: '',
@@ -30,6 +31,9 @@ export default createStore({
     }
   },
   mutations: {
+    toggleForm(state) {
+      state.isFormOpen = !state.isFormOpen
+    },
     addUser(state, payload) {
       state.user = payload
     },
@@ -40,14 +44,9 @@ export default createStore({
       state.invoice = payload
     },
     renderInvoices(state, payload) {
-      // state.invoices.push(payload)
-      // state.invoice = {}
       state.invoices = payload
     },
-    DELETE_INVOICE(state, payload) {
-      state.invoices.splice(payload, 1)
-    },
-    UPDATE_INVOICE(state) {
+    clearInvoice(state) {
       state.invoice = {
         fromName: '',
         fromEmail: '',
@@ -62,9 +61,6 @@ export default createStore({
         date: moment().format('LL')
       }
     },
-    toggleModal(state) {
-      state.isModalVisible = !state.isModalVisible
-    },
     TOGGLE_ALERT_MODAL(state) {
       state.isAlertModalVisible = !state.isAlertModalVisible
     },
@@ -73,11 +69,20 @@ export default createStore({
     },
     clearInvoices(state) {
       state.invoices = []
+    },
+    changeInvoiceType(state, payload) {
+      state.invoiceType = payload
     }
   },
   getters: { 
     invoicesCount(state) {
       return state.invoices.length
+    },
+    paidInvoices(state) {
+      return state.invoices.filter((invoice) => invoice.status === 'Paid')
+    },
+    pendingInvoices(state) {
+      return state.invoices.filter((invoice) => invoice.status === 'Pending')
     }
   },
   actions: {
@@ -98,9 +103,8 @@ export default createStore({
       commit('clearUser')
       router.push({ name: 'Auth' })
     },
-    async addInvoiceToFirestoreCollection({ dispatch, state }) {
+    async addInvoiceToFirestoreCollection({ commit, state }) {
       await addDoc(collection(db, 'invoices'), state.invoice)
-      // dispatch('renderFirestoreCollection')
     },
     renderFirestoreCollection({ commit }) {
       onSnapshot(collection(db, 'invoices'), (querySnapshot) => {
@@ -119,6 +123,10 @@ export default createStore({
       await updateDoc(doc(db, 'invoices', payload), {
         status: 'Paid'
       })
+    },
+    async updateInvoice({ commit, state }, payload) {
+      await updateDoc(doc(db, 'invoices', payload), state.invoice)
+      commit('clearInvoice') 
     },
   },
   modules: {

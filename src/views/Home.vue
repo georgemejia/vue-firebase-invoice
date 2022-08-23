@@ -2,9 +2,7 @@
   <div>
     <InvoiceNavbar />
     <InvoiceList />
-    <div v-if="isFormModalVisible">
-      <InvoiceFormModal />
-    </div>
+    <InvoiceForm v-if="isFormOpen" />
   </div>
 </template>
 
@@ -13,20 +11,20 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 import InvoiceNavbar from '../components/InvoiceNavbar.vue'
 import InvoiceList from '../components/InvoiceList.vue'
-import InvoiceFormModal from '../components/InvoiceFormModal.vue'
+import InvoiceForm from '../components/InvoiceForm.vue'
 
 export default {
   components: {
     InvoiceNavbar,
     InvoiceList,
-    InvoiceFormModal,
+    InvoiceForm,
   },
   setup() {
     const store = useStore()
     // renders the modal state
-    const isFormModalVisible = computed(() => store.state.isModalVisible)
+    const isFormOpen = computed(() => store.state.isFormOpen)
 
-    return { store, isFormModalVisible }
+    return { store, isFormOpen }
   }
 }
 </script>

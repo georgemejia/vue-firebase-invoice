@@ -1,5 +1,5 @@
 <template>
-  <ul class="max-w-screen-sm mx-auto">
+  <ul class="max-w-screen-md mx-auto">
     <InvoiceListItem 
       v-for="(invoice, index) in invoices" 
       :key="index" 
@@ -23,8 +23,12 @@ export default {
     onMounted(() => {
       store.dispatch('renderFirestoreCollection')
     })
-    // renders the invoices array from state
-    const invoices = computed(() => store.state.invoices)
+    // renders the invoices from state
+    const invoices = computed(() => {
+      if (store.state.invoiceType === 'Paid') return store.getters.paidInvoices 
+      else if (store.state.invoiceType === 'Pending') return store.getters.pendingInvoices 
+      else return store.state.invoices
+    })
 
     return { invoices }
   }
