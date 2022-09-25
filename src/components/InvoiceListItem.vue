@@ -8,7 +8,7 @@
       <div class="text-sm font-bold py-1 px-3 rounded opacity-80 text-slate-700" :class="setStatusColor">&#x2022; {{ invoice.status }}</div>
       <button class="text-white text-indigo-600 font-bold" @click="openMenu">&#x27A4;</button>
     </div>
-    <InvoiceModal v-if="isInvoiceOpen" :invoice="invoice" @close-invoice="closeInvoice" />
+    <InvoiceModal v-show="isInvoiceOpen" :invoice="invoice" @close-invoice="closeInvoice" />
   </li>
 </template>
 

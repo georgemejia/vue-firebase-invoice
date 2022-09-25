@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import { useStore } from 'vuex'
-
 export default {
    setup() {
       const store = useStore()
@@ -47,6 +46,10 @@ export default {
         store.dispatch('signIn', signIn.value)
         signIn.value = {}
       }
+
+      onMounted(() => {
+        store.dispatch('setUser')
+      })
 
       return { signUp, signIn, handleSignUp, handleSignIn }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-md mx-auto left-0 right-0 top-0 bottom-0 bg-slate-800 rounded-b p-12 absolute z-10">
+  <div class="max-w-4xl mx-auto left-0 right-0 top-0 bottom-0 bg-slate-800 rounded-b p-12 absolute z-10">
     <InvoiceHeader :invoice="invoice" @close-invoice="closeInvoice" />
     <InvoiceContact :invoice="invoice" />
     <InvoiceItems :invoice="invoice" />

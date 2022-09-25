@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from '../views/Home.vue'
 import Auth from '../views/Auth.vue'
 import { auth } from '../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const routes = [
   {
@@ -24,11 +25,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    if (!auth.currentUser) {
-      next('/')
-    } else {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        next('/')
+      } else {
         next()
-    }
+      }
+    })
   } else {
     next()
   }

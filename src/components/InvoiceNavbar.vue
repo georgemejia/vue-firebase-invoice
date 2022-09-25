@@ -11,7 +11,7 @@
       </select>
       <button class="text-white font-bold bg-indigo-600 p-3 rounded ml-10" @click="createNewInvoice">New Invoice +</button>
     </div>
-    <!-- <button class="text-white underline" @click="handleSignOut">Sign Out</button> -->
+    <img class="cursor-pointer" src="../assets/logout.svg" alt="icon" @click="handleSignOut">
   </div>
 </template>
 

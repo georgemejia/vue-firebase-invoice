@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import moment from 'moment'
 import { auth, db } from '../firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
 import { collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore"
 import router from '../router/index'
 
@@ -34,7 +34,7 @@ export default createStore({
     toggleForm(state) {
       state.isFormOpen = !state.isFormOpen
     },
-    addUser(state, payload) {
+    setUser(state, payload) {
       state.user = payload
     },
     clearUser(state) {
@@ -67,9 +67,6 @@ export default createStore({
     ADD_USER(state, payload) {
       state.user.push(payload)
     },
-    clearInvoices(state) {
-      state.invoices = []
-    },
     changeInvoiceType(state, payload) {
       state.invoiceType = payload
     }
@@ -89,18 +86,22 @@ export default createStore({
     async signUp({ commit }, payload) {
       const { email, password } = payload
       await createUserWithEmailAndPassword(auth, email, password)
-      commit('addUser', auth.currentUser)
+      commit('setUser', auth.currentUser)
       router.push({ name: 'Home' })
     },
-    async signIn({ commit }, payload) {
+    async signIn({ commit, dispatch }, payload) {
       const { email, password } = payload
       await signInWithEmailAndPassword(auth, email, password)
-      commit('addUser', auth.currentUser)
-      router.push({ name: 'Home' })
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          dispatch('setUser')
+          router.push({ name: 'Home' })
+        }
+      })
     },
-    async signOut({ commit }) {
+    async signOut({ commit, dispatch }) {
       await signOut(auth)
-      commit('clearUser')
+      dispatch('setUser')
       router.push({ name: 'Auth' })
     },
     async addInvoiceToFirestoreCollection({ commit, state }) {
@@ -128,6 +129,11 @@ export default createStore({
       await updateDoc(doc(db, 'invoices', payload), state.invoice)
       commit('clearInvoice') 
     },
+    setUser({ commit }) {
+      onAuthStateChanged(auth, (user) => {
+        commit('setUser', user)
+      })
+    }
   },
   modules: {
   }

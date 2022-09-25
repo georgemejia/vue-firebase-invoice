@@ -7,11 +7,12 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import InvoiceNavbar from '../components/InvoiceNavbar.vue'
 import InvoiceList from '../components/InvoiceList.vue'
 import InvoiceForm from '../components/InvoiceForm.vue'
+import { auth } from '../firebase'
 
 export default {
   components: {
@@ -23,6 +24,10 @@ export default {
     const store = useStore()
     // renders the modal state
     const isFormOpen = computed(() => store.state.isFormOpen)
+    
+    onMounted(() => {
+      store.dispatch('setUser')
+    })
 
     return { store, isFormOpen }
   }

@@ -36,9 +36,9 @@
 
       <InvoiceFormItems :items="invoice.items" />
 
-      <button class="text-white font-bold rounded bg-slate-700 py-2 px-4" @click="toggleForm">Cancel</button>
-      <button v-if="isAddButtonVisible" class="text-white font-bold rounded bg-indigo-600 py-2 px-4 ml-2" @click="addNewInvoice">Save</button>
-      <button v-if="isUpdateButtonVisible" class="text-white font-bold rounded bg-indigo-600 py-2 px-4 ml-2" @click="updateInvoice(invoice.id)">Update</button>
+      <InvoiceFormButton class="bg-slate-700" @click="closeForm">Cancel</InvoiceFormButton>
+      <InvoiceFormButton v-if="isAddButtonVisible" class="bg-indigo-600 ml-2" @click="addNewInvoice">Save</InvoiceFormButton>
+      <InvoiceFormButton v-if="isUpdateButtonVisible" class="bg-indigo-600 ml-2" @click="updateInvoice(invoice.id)">Update</InvoiceFormButton>
     </div>
   </div>
 </template>
@@ -49,11 +49,13 @@ import { useStore } from 'vuex'
 import InvoiceBillFrom from './InvoiceBillFrom.vue'
 import InvoiceBillTo from './InvoiceBillTo.vue'
 import InvoiceFormItems from './InvoiceFormItems.vue'
+import InvoiceFormButton from './InvoiceFormButton.vue'
 export default {
   components: {
     InvoiceBillFrom,
     InvoiceBillTo,
-    InvoiceFormItems
+    InvoiceFormItems,
+    InvoiceFormButton
   },
   setup() {
     const store = useStore()
@@ -69,7 +71,7 @@ export default {
     // function adds new invoice to invoices array
     const addNewInvoice = () => {
       store.dispatch('addInvoiceToFirestoreCollection')
-      toggleForm()
+      store.commit('toggleForm')
     }
     // renders the state of the add button
     const isAddButtonVisible = computed(() => store.state.isAddButtonVisible)
@@ -79,12 +81,15 @@ export default {
     const updateInvoice = (id) => {
       alert('Are you sure you want to update this invoice?')
       store.dispatch('updateInvoice', id)
-      toggleForm()
+      store.commit('toggleForm')
     }
 
-    const toggleForm = () => store.commit('toggleForm')
+    const closeForm = () => {
+      store.commit('clearInvoice')
+      store.commit('toggleForm')
+    }
 
-    return { invoice, addNewInvoice, isAddButtonVisible, isUpdateButtonVisible, updateInvoice, toggleForm }
+    return { invoice, addNewInvoice, isAddButtonVisible, isUpdateButtonVisible, updateInvoice, closeForm }
   }
 }
 </script>
