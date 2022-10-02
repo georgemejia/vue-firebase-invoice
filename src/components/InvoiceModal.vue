@@ -3,7 +3,7 @@
     <InvoiceHeader :invoice="invoice" @close-invoice="closeInvoice" />
     <InvoiceContact :invoice="invoice" />
     <InvoiceItems :invoice="invoice" />
-    <InvoiceButtons :invoice="invoice" />
+    <InvoiceButtons :invoice="invoice" @close-invoice="closeInvoice" />
   </div>
 </template>
 

@@ -17,7 +17,8 @@ export default {
       // deletes the selected invoice
       const deleteInvoice = (id) => {
          store.dispatch('deleteInvoiceFromFirestoreCollection', id)
-         store.commit('toggleInvoice')
+         // store.commit('toggleInvoice')
+         emit('closeInvoice')
       }
       // updates the status of the selected invoice
       const markAsPaid = (id) => store.dispatch('markInvoiceAsPaid', id)
