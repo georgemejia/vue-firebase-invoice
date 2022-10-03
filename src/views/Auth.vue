@@ -20,7 +20,7 @@
           <input class="py-2 pl-2 rounded" type="email" placeholder="Your email" v-model="signIn.email" />
         </div>
         <div class="mb-2">
-          <input class="py-2 pl-2 rounded" type="text" placeholder="Enter Password" v-model="signIn.password"/>
+          <input class="py-2 pl-2 rounded" type="password" placeholder="Enter Password" v-model="signIn.password"/>
         </div>
         <input type="submit" value="Sign In" class="text-white font-bold bg-indigo-600 p-3 rounded"/>
       </div>

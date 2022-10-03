@@ -91,7 +91,11 @@ export default createStore({
     },
     async signIn({ commit, dispatch }, payload) {
       const { email, password } = payload
-      await signInWithEmailAndPassword(auth, email, password)
+      try {
+        await signInWithEmailAndPassword(auth, email, password)
+      } catch (error) {
+        alert('Incorrect password. Please try again.')
+      }
       onAuthStateChanged(auth, (user) => {
         if (user) {
           dispatch('setUser')
